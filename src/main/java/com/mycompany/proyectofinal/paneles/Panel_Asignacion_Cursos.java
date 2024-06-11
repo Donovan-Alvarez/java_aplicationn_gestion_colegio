@@ -22,8 +22,8 @@ public class Panel_Asignacion_Cursos extends javax.swing.JFrame {
         initComponents();
         var estudiante = ProyectoFinal.estudianteLogueado;
         jTextField1.setText(estudiante.getNombre() + " " + estudiante.getApellido());
-        
-        for (Curso c : ProyectoFinal.cursos){
+
+        for (Curso c : ProyectoFinal.cursos) {
             jComboBox1.addItem(c.getNombre());
         }
     }
@@ -131,30 +131,29 @@ public class Panel_Asignacion_Cursos extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Estudiante estudianteSeleccionado = null;
         Curso cursoSeleccionado = null;
-       
-        for (Estudiante e : ProyectoFinal.estudiantes){
-            if (e.nombre.equals(ProyectoFinal.estudianteLogueado.nombre)){
+
+        for (Estudiante e : ProyectoFinal.estudiantes) {
+            if (e.nombre.equals(ProyectoFinal.estudianteLogueado.nombre)) {
                 estudianteSeleccionado = e;
                 break;
             }
         }
-        
-        for(Curso c : ProyectoFinal.cursos){
-            if(c.nombre.equals(jComboBox1.getSelectedItem().toString())){
+
+        for (Curso c : ProyectoFinal.cursos) {
+            if (c.nombre.equals(jComboBox1.getSelectedItem().toString())) {
                 cursoSeleccionado = c;
                 System.out.println(cursoSeleccionado.nombre);
                 break;
             }
         }
-        
-        
-        
-        if(estudianteSeleccionado != null && cursoSeleccionado != null){
-          
-            
-            if(estudianteSeleccionado.cursos.size() >= 5  && cursoSeleccionado.estudiantes.size() >= 10){
-                JOptionPane.showMessageDialog(this, "Máximo alcanzado","", JOptionPane.ERROR_MESSAGE);
-            }else{
+
+        if (estudianteSeleccionado != null && cursoSeleccionado != null) {
+
+            if (estudianteSeleccionado.cursos.size() >= 5) {
+                JOptionPane.showMessageDialog(this, "Máximo de cursos alcanzados", "", JOptionPane.ERROR_MESSAGE);
+            } else if (cursoSeleccionado.estudiantes.size() >= 10) {
+                JOptionPane.showMessageDialog(this, "Máximo de alumnos alcanzados", "", JOptionPane.ERROR_MESSAGE);
+            } else {
                 estudianteSeleccionado.cursos.add(cursoSeleccionado);
                 estudianteSeleccionado.notaFinal.add(-1);
                 cursoSeleccionado.estudiantes.add(estudianteSeleccionado);
@@ -163,7 +162,6 @@ public class Panel_Asignacion_Cursos extends javax.swing.JFrame {
             System.out.println(estudianteSeleccionado.cursos.size());
             System.out.println(cursoSeleccionado.estudiantes.size());
 
-            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -149,11 +149,12 @@ public class Panel_Asignacion_Cursos_Administrador extends javax.swing.JFrame {
         
         
         if(estudianteSeleccionado != null && cursoSeleccionado != null){
-          
-            
-            if(estudianteSeleccionado.cursos.size() >= 5  && cursoSeleccionado.estudiantes.size() >= 10){
-                JOptionPane.showMessageDialog(this, "Máximo alcanzado","", JOptionPane.ERROR_MESSAGE);
-            }else{
+            if(estudianteSeleccionado.cursos.size() >= 5){
+                JOptionPane.showMessageDialog(this, "Máximo de cursos alcanzados","", JOptionPane.ERROR_MESSAGE);
+            }else if(cursoSeleccionado.estudiantes.size() >= 10){
+                JOptionPane.showMessageDialog(this, "Máximo de alumnos alcanzados","", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
                 estudianteSeleccionado.cursos.add(cursoSeleccionado);
                 estudianteSeleccionado.notaFinal.add(-1);
                 cursoSeleccionado.estudiantes.add(estudianteSeleccionado);

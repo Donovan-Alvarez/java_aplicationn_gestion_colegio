@@ -8,14 +8,23 @@ import com.mycompany.proyectofinal.ProyectoFinal;
 import com.mycompany.proyectofinal.models.Curso;
 import com.mycompany.proyectofinal.models.Estudiante;
 import com.mycompany.proyectofinal.models.Profesor;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
  * @author donovanpc
  */
 public class Panel_Modificar_Curso extends javax.swing.JFrame {
-    
+
     private Curso cursoModificar;
 
     /**
@@ -23,11 +32,11 @@ public class Panel_Modificar_Curso extends javax.swing.JFrame {
      */
     public Panel_Modificar_Curso(int posicion) {
         initComponents();
-        
-        for (Profesor p : com.mycompany.proyectofinal.ProyectoFinal.profesors){
+
+        for (Profesor p : com.mycompany.proyectofinal.ProyectoFinal.profesors) {
             jComboBox1.addItem(p.getNombre() + " " + p.getApellido());
         }
-        
+
         cursoModificar = ProyectoFinal.cursos.get(posicion);
         jTextField1.setText(cursoModificar.nombre);
         jTextField2.setText(cursoModificar.id);
@@ -37,7 +46,7 @@ public class Panel_Modificar_Curso extends javax.swing.JFrame {
         jTextField6.setText(cursoModificar.horaInicio);
         jTextField7.setText(cursoModificar.horaFin);
         jComboBox1.setSelectedItem(cursoModificar.profesor);
-       
+
     }
 
     /**
@@ -190,7 +199,7 @@ public class Panel_Modificar_Curso extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(104, 104, 104)
@@ -219,10 +228,93 @@ public class Panel_Modificar_Curso extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void LeerArchivo() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Seleccione el archivo JSON de cursos");
+
+        int userSelection = fileChooser.showOpenDialog(null);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+
+            JSONParser parser = new JSONParser();
+            try (FileReader reader = new FileReader(file)) {
+                // Parsear el archivo JSON y convertirlo en un JSONArray
+                JSONArray jsonArray = (JSONArray) parser.parse(reader);
+
+                // Iterar sobre el JSONArray y convertir cada elemento en un objeto Curso
+                for (Object obj : jsonArray) {
+                    JSONObject jsonObject = (JSONObject) obj;
+
+                    Curso curso = new Curso();
+                    curso.id = String.valueOf(jsonObject.get("id"));
+                    curso.nombre = String.valueOf(jsonObject.get("nombre"));
+                    curso.seccion = String.valueOf(jsonObject.get("seccion"));
+                    curso.fechaInicio = String.valueOf(jsonObject.get("fecha_inicio"));
+                    curso.fechaFin = String.valueOf(jsonObject.get("fecha_fin"));
+                    curso.horaInicio = String.valueOf(jsonObject.get("hora_inicio"));
+                    curso.horaFin = String.valueOf(jsonObject.get("hora_fin"));
+                    curso.profesor = String.valueOf(jsonObject.get("profesor"));
+
+                    ProyectoFinal.cursos.add(curso);
+                }
+                for (Curso c : ProyectoFinal.cursos) {
+                    System.out.println("ID: " + c.id);
+                    System.out.println("Nombre: " + c.nombre);
+                    System.out.println("Sección: " + c.seccion);
+                    System.out.println("Fecha Inicio: " + c.fechaInicio);
+                    System.out.println("Fecha Fin: " + c.fechaFin);
+                    System.out.println("Hora Inicio: " + c.horaInicio);
+                    System.out.println("Hora Fin: " + c.horaFin);
+                    System.out.println("Profesor: " + c.profesor);
+                    System.out.println();
+                }
+            } catch (IOException | ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void guardarCursosEnJSON() {
+        // Crear un JFileChooser para seleccionar la ubicación del archivo
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar archivo JSON de cursos");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        int userSelection = fileChooser.showSaveDialog(null);
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            if (!file.getAbsolutePath().endsWith(".json")) {
+                file = new File(file.getAbsolutePath() + ".json");
+            }
+
+            JSONArray jsonArray = new JSONArray();
+
+            for (Curso c : ProyectoFinal.cursos) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("id", c.id);
+                jsonObject.put("nombre", c.nombre);
+                jsonObject.put("seccion", c.seccion);
+                jsonObject.put("fecha_inicio", c.fechaInicio);
+                jsonObject.put("fecha_fin", c.fechaFin);
+                jsonObject.put("hora_inicio", c.horaInicio);
+                jsonObject.put("hora_fin", c.horaFin);
+                jsonObject.put("profesor", c.profesor);
+
+                jsonArray.add(jsonObject);
+            }
+
+            try (FileWriter fileWriter = new FileWriter(file)) {
+                fileWriter.write(jsonArray.toJSONString());
+                fileWriter.flush();
+                System.out.println("Archivo JSON guardado exitosamente en " + file.getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

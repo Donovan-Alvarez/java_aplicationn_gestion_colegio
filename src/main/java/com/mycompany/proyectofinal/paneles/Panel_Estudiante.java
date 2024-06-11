@@ -58,6 +58,11 @@ public class Panel_Estudiante extends javax.swing.JFrame {
         });
 
         jButton4.setText("Perfil");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,6 +123,12 @@ public class Panel_Estudiante extends javax.swing.JFrame {
         pcca.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        Panel_Perfil_Estudiante panel_Perfil_Estudiante = new Panel_Perfil_Estudiante();
+        panel_Perfil_Estudiante.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

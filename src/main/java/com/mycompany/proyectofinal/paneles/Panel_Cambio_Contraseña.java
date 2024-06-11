@@ -5,6 +5,7 @@
 package com.mycompany.proyectofinal.paneles;
 
 import com.mycompany.proyectofinal.ProyectoFinal;
+import com.mycompany.proyectofinal.models.Estudiante;
 import com.mycompany.proyectofinal.models.Profesor;
 import javax.swing.JOptionPane;
 
@@ -12,10 +13,15 @@ import javax.swing.JOptionPane;
  *
  * @author donovanpc
  */
+
 public class Panel_Cambio_Contraseña extends javax.swing.JFrame {
-     private Profesor profesor = ProyectoFinal.profesorLogueado;
-     
-    private boolean validarContraseña(String password){
+
+    private Profesor profesor = ProyectoFinal.profesorLogueado;
+    private Estudiante estudiante = ProyectoFinal.estudianteLogueado;
+    
+    
+
+    private boolean validarContraseña(String password) {
         String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
         return password.matches(regex);
     }
@@ -25,7 +31,14 @@ public class Panel_Cambio_Contraseña extends javax.swing.JFrame {
      */
     public Panel_Cambio_Contraseña() {
         initComponents();
-        jTextField1.setText(profesor.password);
+        System.out.println(profesor.nombre);
+        System.out.println(estudiante.nombre);
+        if (profesor.nombre != null) {
+            jTextField1.setText(profesor.password);
+        } else if (estudiante.nombre != null) {
+            jTextField1.setText(estudiante.password);
+        }
+
     }
 
     /**
@@ -129,27 +142,45 @@ public class Panel_Cambio_Contraseña extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(validarContraseña(jTextField2.getText())){
-            profesor.password = jTextField2.getText();
-            JOptionPane.showMessageDialog(this, "Contraseña actualizada");
-            jTextField1.setText(profesor.password);
-        }else{
-            JOptionPane.showMessageDialog(this, "Contraseña invalida", "", JOptionPane.WARNING_MESSAGE);
-            jTextField2.setText("");
+        if (profesor.nombre != null) {
+            if (validarContraseña(jTextField2.getText())) {
+                profesor.password = jTextField2.getText();
+                JOptionPane.showMessageDialog(this, "Contraseña actualizada");
+                jTextField1.setText(profesor.password);
+            } else {
+                JOptionPane.showMessageDialog(this, "Contraseña invalida", "", JOptionPane.WARNING_MESSAGE);
+                jTextField2.setText("");
+            }
+        } else if (estudiante.nombre != null) {
+            if (validarContraseña(jTextField2.getText())) {
+                estudiante.password = jTextField2.getText();
+                JOptionPane.showMessageDialog(this, "Contraseña actualizada");
+                jTextField1.setText(estudiante.password);
+            } else {
+                JOptionPane.showMessageDialog(this, "Contraseña invalida", "", JOptionPane.WARNING_MESSAGE);
+                jTextField2.setText("");
+            }
         }
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Panel_Perfil_Profesor  panel_Perfil_Profesor = new Panel_Perfil_Profesor();
-        panel_Perfil_Profesor.setVisible(true);
-        this.dispose();
+        if (profesor.nombre != null) {
+            Panel_Perfil_Profesor panel_Perfil_Profesor = new Panel_Perfil_Profesor();
+            panel_Perfil_Profesor.setVisible(true);
+            this.dispose();
+        } else if (estudiante.nombre != null) {
+            Panel_Perfil_Estudiante panel_Perfil_Estudiante = new Panel_Perfil_Estudiante();
+            panel_Perfil_Estudiante.setVisible(true);
+            this.dispose();
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

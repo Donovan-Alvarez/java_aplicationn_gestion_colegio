@@ -140,10 +140,12 @@ public class Panel_Asignacion_Estudiantes_Curso extends javax.swing.JFrame {
         if(estudianteSeleccionado != null && cursoSeleccionado != null){
             if(cursoSeleccionado.estudiantes.size() >= 10){
                 JOptionPane.showMessageDialog(this, "Máximo de estudiantes asignados","",JOptionPane.ERROR_MESSAGE);
+            }else if(estudianteSeleccionado.cursos.size() >= 5){
+                JOptionPane.showMessageDialog(this, "Máximo de cursos asignados","",JOptionPane.ERROR_MESSAGE);
             }
             else{
                 cursoSeleccionado.estudiantes.add(estudianteSeleccionado);
-                JOptionPane.showMessageDialog(this, "Estudiante asginado exitosamente");
+                JOptionPane.showMessageDialog(this, "Estudiante asignado exitosamente");
             }
         }
         
