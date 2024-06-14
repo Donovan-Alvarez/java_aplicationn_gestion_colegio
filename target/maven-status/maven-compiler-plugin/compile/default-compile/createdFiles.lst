@@ -28,6 +28,7 @@ com/mycompany/proyectofinal/paneles/Panel_Administrador$7.class
 com/mycompany/proyectofinal/models/Curso.class
 com/mycompany/proyectofinal/paneles/Panel_Consulta_Curso_Asignado$1.class
 com/mycompany/proyectofinal/paneles/Panel_Consulta_Cursos_De_Profesor.class
+com/mycompany/proyectofinal/paneles/Panel_Perfil_Estudiante$2.class
 com/mycompany/proyectofinal/paneles/Panel_Asignacion_Estudiantes_Curso$2.class
 com/mycompany/proyectofinal/paneles/Panel_Consulta_Estudiante.class
 com/mycompany/proyectofinal/paneles/Panel_Profesor$4.class
@@ -85,6 +86,7 @@ com/mycompany/proyectofinal/paneles/Panel_Crear_Estudiante.class
 com/mycompany/proyectofinal/paneles/Panel_Modificar_Profesor$2.class
 com/mycompany/proyectofinal/paneles/Panel_Nota_Final.class
 com/mycompany/proyectofinal/paneles/Panel_Crear_Curso.class
+com/mycompany/proyectofinal/models/Serializacion.class
 com/mycompany/proyectofinal/paneles/Panel_Administrador$10.class
 com/mycompany/proyectofinal/paneles/Panel_Crear_Estudiante$2.class
 com/mycompany/proyectofinal/paneles/Panel_Asignacion_Estudiantes_Curso.class

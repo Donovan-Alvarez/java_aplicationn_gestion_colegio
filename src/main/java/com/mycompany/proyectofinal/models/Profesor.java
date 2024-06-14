@@ -4,11 +4,15 @@
  */
 package com.mycompany.proyectofinal.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author donovanpc
  */
-public class Profesor {
+
+public class Profesor implements Serializable {
+    private static final long serialVersionUid = 1L;
     public String usuario;
     public String nombre;
     public String apellido;

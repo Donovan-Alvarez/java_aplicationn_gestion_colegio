@@ -4,13 +4,15 @@
  */
 package com.mycompany.proyectofinal.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author donovanpc
  */
-public class Estudiante {
+public class Estudiante implements Serializable{
+    private static final long serialVersionUid = 1L;
     public String carne;
     public String nombre;
     public String apellido;
