@@ -7,6 +7,11 @@ package com.mycompany.proyectofinal.paneles;
 import com.mycompany.proyectofinal.ProyectoFinal;
 import com.mycompany.proyectofinal.models.Curso;
 import com.mycompany.proyectofinal.models.Estudiante;
+import com.mycompany.proyectofinal.models.Profesor;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,11 +25,11 @@ public class Panel_Asignacion_Cursos_Administrador extends javax.swing.JFrame {
      */
     public Panel_Asignacion_Cursos_Administrador() {
         initComponents();
-        for (Estudiante e : ProyectoFinal.estudiantes){
+        for (Estudiante e : ProyectoFinal.estudiantes) {
             jComboBox1.addItem(e.getNombre());
         }
-        
-        for (Curso c : ProyectoFinal.cursos){
+
+        for (Curso c : ProyectoFinal.cursos) {
             jComboBox2.addItem(c.getNombre());
         }
     }
@@ -45,6 +50,7 @@ public class Panel_Asignacion_Cursos_Administrador extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,6 +74,13 @@ public class Panel_Asignacion_Cursos_Administrador extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Carga masiva asiganciones");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,11 +89,14 @@ public class Panel_Asignacion_Cursos_Administrador extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
                         .addGap(8, 8, 8))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(196, 196, 196)
-                        .addComponent(jLabel1))
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,7 +128,9 @@ public class Panel_Asignacion_Cursos_Administrador extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton3))
                 .addGap(34, 34, 34))
         );
 
@@ -129,32 +147,29 @@ public class Panel_Asignacion_Cursos_Administrador extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Estudiante estudianteSeleccionado = null;
         Curso cursoSeleccionado = null;
-       
-        for (Estudiante e : ProyectoFinal.estudiantes){
-            if (e.nombre.equals(jComboBox1.getSelectedItem().toString())){
+
+        for (Estudiante e : ProyectoFinal.estudiantes) {
+            if (e.nombre.equals(jComboBox1.getSelectedItem().toString())) {
                 estudianteSeleccionado = e;
                 System.out.println(estudianteSeleccionado.nombre);
                 break;
             }
         }
-        
-        for(Curso c : ProyectoFinal.cursos){
-            if(c.nombre.equals(jComboBox2.getSelectedItem().toString())){
+
+        for (Curso c : ProyectoFinal.cursos) {
+            if (c.nombre.equals(jComboBox2.getSelectedItem().toString())) {
                 cursoSeleccionado = c;
                 System.out.println(cursoSeleccionado.nombre);
                 break;
             }
         }
-        
-        
-        
-        if(estudianteSeleccionado != null && cursoSeleccionado != null){
-            if(estudianteSeleccionado.cursos.size() >= 5){
-                JOptionPane.showMessageDialog(this, "Máximo de cursos alcanzados","", JOptionPane.ERROR_MESSAGE);
-            }else if(cursoSeleccionado.estudiantes.size() >= 10){
-                JOptionPane.showMessageDialog(this, "Máximo de alumnos alcanzados","", JOptionPane.ERROR_MESSAGE);
-            }
-            else{
+
+        if (estudianteSeleccionado != null && cursoSeleccionado != null) {
+            if (estudianteSeleccionado.cursos.size() >= 5) {
+                JOptionPane.showMessageDialog(this, "Máximo de cursos alcanzados", "", JOptionPane.ERROR_MESSAGE);
+            } else if (cursoSeleccionado.estudiantes.size() >= 10) {
+                JOptionPane.showMessageDialog(this, "Máximo de alumnos alcanzados", "", JOptionPane.ERROR_MESSAGE);
+            } else {
                 estudianteSeleccionado.cursos.add(cursoSeleccionado);
                 estudianteSeleccionado.notaFinal.add(-1);
                 cursoSeleccionado.estudiantes.add(estudianteSeleccionado);
@@ -163,9 +178,49 @@ public class Panel_Asignacion_Cursos_Administrador extends javax.swing.JFrame {
             System.out.println(estudianteSeleccionado.cursos.size());
             System.out.println(cursoSeleccionado.estudiantes.size());
 
-            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        JFileChooser archivo = new JFileChooser();
+        int retorno = archivo.showDialog(this, "Carga");
+        if (retorno == JFileChooser.APPROVE_OPTION) {
+
+            try {
+                File f = new File(archivo.getSelectedFile().toPath().toString());
+                FileReader fr = new FileReader(f);
+
+                BufferedReader br = new BufferedReader(fr);
+
+                String linea;
+                while ((linea = br.readLine()) != null) {
+
+                    // Car1234#Progra 1
+                    String[] datos = linea.split("#");
+
+                    for (Estudiante e : ProyectoFinal.estudiantes) {
+                        
+                        if (e.carne.equals(datos[0])) {
+                            
+                            for (Curso c : ProyectoFinal.cursos) {
+                                
+                                if (c.nombre.equals(datos[1])) {
+                                    e.cursos.add(c);
+                                    c.estudiantes.add(e);
+                                    e.notaFinal.add(-1);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "No se pudo cargar el archivo", "", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,6 +229,7 @@ public class Panel_Asignacion_Cursos_Administrador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
